@@ -1,1 +1,567 @@
 # life-battery-website
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Battery | Personal Energy Management App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        :root {
+            --primary: #4f46e5;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo-icon {
+            background: var(--primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* 主要内容区域 */
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            margin-bottom: 60px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .highlight {
+            color: var(--primary);
+            background: linear-gradient(120deg, #4f46e5 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #4338ca;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+        }
+        
+        /* 特性卡片 */
+        .section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            color: var(--gray);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+        }
+        
+        /* 适用人群 */
+        .audience-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .audience-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .audience-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 20px;
+            color: white;
+        }
+        
+        .professional { background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); }
+        .student { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); }
+        .everyone { background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%); }
+        
+        /* CTA区域 */
+        .cta {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 60px 40px;
+            text-align: center;
+            margin: 80px 0;
+        }
+        
+        .cta h2 {
+            color: white;
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+        }
+        
+        .cta p {
+            color: #cbd5e1;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+        
+        .btn-large {
+            padding: 18px 36px;
+            font-size: 1.1rem;
+        }
+        
+        .small-note {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+        
+        /* 页脚 */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 50px 0 30px;
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .link-group h4 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .link-group a {
+            display: block;
+            color: var(--gray);
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.2s;
+        }
+        
+        .link-group a:hover {
+            color: var(--primary);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 30px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .features-grid,
+            .audience-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-links {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .cta {
+                padding: 40px 20px;
+            }
+        }
+        
+        /* 徽章样式 */
+        .app-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: #f1f5f9;
+            color: var(--dark);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .badge i {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <div class="logo-icon">⚡</div>
+                <span>Life Battery</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#for-whom">For Whom</a>
+                <a href="#download">Download</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主标题区域 -->
+    <main>
+        <section class="hero">
+            <h1>Recharge Your Day with <span class="highlight">Life Battery</span></h1>
+            <p class="subtitle">An innovative personal energy management app that helps you quantify your daily energy balance, moving you away from aimless busyness.</p>
+            <a href="#download" class="btn btn-primary">
+                <i class="fab fa-apple"></i> Download on App Store
+            </a>
+            <div class="app-badges">
+                <span class="badge"><i class="fas fa-shield-alt"></i> Privacy First</span>
+                <span class="badge"><i class="fas fa-cloud"></i> iCloud Sync</span>
+                <span class="badge"><i class="fas fa-mobile-alt"></i> iOS Optimized</span>
+            </div>
+        </section>
+
+        <!-- 特性介绍 -->
+        <section id="features" class="section">
+            <h2 class="section-title">Core Features</h2>
+            <p class="section-subtitle">Everything you need to manage your personal energy scientifically</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Quantify Energy Balance</h3>
+                    <p>Track the energy gain or loss from activities like work, study, and socializing to understand where your energy goes.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Smart Time Reminders</h3>
+                    <p>Features a time-passage simulation with hourly nudges to foster time awareness. Adjust reminder frequency based on your personal energy expenditure.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-pen-fancy"></i>
+                    </div>
+                    <h3>Integrated Deep Reflection</h3>
+                    <p>Jot down insights while logging energy changes to discover your optimal life rhythm.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Visual Data Analytics</h3>
+                    <p>Review your energy trends through charts to identify your peak performance and low-energy periods.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Smart Theme Switching</h3>
+                    <p>The interface auto-adjusts between light and dark modes based on the time of day for eye comfort. Manual theme selection is also available.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Seamless iCloud Sync</h3>
+                    <p>Your data syncs securely across all your Apple devices for access anywhere, anytime.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 适用人群 -->
+        <section id="for-whom" class="section">
+            <h2 class="section-title">Ideal For</h2>
+            <p class="section-subtitle">Designed for everyone seeking better energy management</p>
+            
+            <div class="audience-cards">
+                <div class="audience-card">
+                    <div class="audience-icon professional">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Busy Professionals</h3>
+                    <p>Seeking work-energy balance and increased productivity in demanding careers.</p>
+                </div>
+                
+                <div class="audience-card">
+                    <div class="audience-icon student">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Students</h3>
+                    <p>Pursuing efficiency who need to schedule study and rest scientifically for academic success.</p>
+                </div>
+                
+                <div class="audience-card">
+                    <div class="audience-icon everyone">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Everyone</h3>
+                    <p>Looking to gain better control over their life and improve their energy levels for a more balanced lifestyle.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 下载区域 -->
+        <section id="download" class="cta">
+            <h2>Manage Your "Life Battery" Scientifically</h2>
+            <p>Find your perfect rhythm and start each day with efficiency and ease.</p>
+            <a href="#" class="btn btn-primary btn-large">
+                <i class="fab fa-apple"></i> Download on the App Store
+            </a>
+            <p class="small-note">Available exclusively for iOS devices</p>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <div class="logo-icon">⚡</div>
+                    <span>Life Battery</span>
+                </div>
+                <p>Innovative personal energy management for a balanced life.</p>
+            </div>
+            
+            <div class="footer-links">
+                <div class="link-group">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#for-whom">For Whom</a>
+                    <a href="#download">Download</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Support</a>
+                </div>
+                
+                <div class="link-group">
+                    <h4>Connect</h4>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Life Battery App. All rights reserved.</p>
+            <p>Apple and the Apple logo are trademarks of Apple Inc.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 简单的年份更新
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearSpan = document.querySelector('.footer-bottom p');
+            if (yearSpan) {
+                yearSpan.innerHTML = yearSpan.innerHTML.replace('2024', new Date().getFullYear());
+            }
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
